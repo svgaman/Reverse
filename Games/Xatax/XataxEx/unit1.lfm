@@ -1,0 +1,119 @@
+object Form1: TForm1
+  Left = 472
+  Height = 529
+  Top = 179
+  Width = 497
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'FrmEx'
+  ClientHeight = 529
+  ClientWidth = 497
+  Position = poDesktopCenter
+  LCLVersion = '1.0.10.0'
+  object Edit1: TEdit
+    Left = 8
+    Height = 23
+    Top = 104
+    Width = 480
+    TabOrder = 0
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 16
+    Top = 80
+    Width = 93
+    Caption = 'XATAX.RES Path :'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 16
+    Top = 136
+    Width = 63
+    Caption = 'Output Dir :'
+    ParentColor = False
+  end
+  object Edit2: TEdit
+    Left = 8
+    Height = 23
+    Top = 160
+    Width = 482
+    OnChange = Edit2Change
+    TabOrder = 1
+  end
+  object Panel1: TPanel
+    Left = 8
+    Height = 34
+    Top = 8
+    Width = 482
+    Caption = 'XataxEx'
+    Font.Color = clBlue
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 16
+    Top = 49
+    Width = 184
+    Caption = 'Ressource extractor for Xatax Game'
+    Font.Color = clBlack
+    Font.Style = [fsItalic]
+    ParentColor = False
+    ParentFont = False
+  end
+  object BtnParse: TButton
+    Left = 8
+    Height = 25
+    Top = 192
+    Width = 152
+    Caption = 'Parse File'
+    OnClick = BtnParseClick
+    TabOrder = 3
+  end
+  object ListView1: TListView
+    Left = 8
+    Height = 240
+    Top = 248
+    Width = 482
+    Columns = <    
+      item
+        Caption = 'Fichier'
+        Width = 150
+      end    
+      item
+        Caption = 'Offset'
+        Width = 100
+      end    
+      item
+        Caption = 'Size'
+        Width = 100
+      end    
+      item
+        Caption = 'Unk'
+      end>
+    MultiSelect = True
+    ReadOnly = True
+    RowSelect = True
+    TabOrder = 4
+    ViewStyle = vsReport
+  end
+  object Label4: TLabel
+    Left = 8
+    Height = 16
+    Top = 224
+    Width = 46
+    Caption = 'File List :'
+    ParentColor = False
+  end
+  object BtnExtract: TButton
+    Left = 8
+    Height = 25
+    Top = 496
+    Width = 152
+    Caption = 'Extract'
+    OnClick = BtnExtractClick
+    TabOrder = 5
+  end
+end
