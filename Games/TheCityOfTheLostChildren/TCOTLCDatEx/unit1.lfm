@@ -1,0 +1,117 @@
+object Form1: TForm1
+  Left = 1150
+  Height = 545
+  Top = 353
+  Width = 609
+  Caption = 'Game Ressource Extractor'
+  ClientHeight = 545
+  ClientWidth = 609
+  LCLVersion = '1.2.4.0'
+  object Panel1: TPanel
+    Left = 8
+    Height = 32
+    Top = 8
+    Width = 594
+    Caption = 'The City Of The Lost Children'
+    TabOrder = 0
+  end
+  object GameFilesList: TFileListBox
+    Left = 8
+    Height = 408
+    Top = 128
+    Width = 208
+    Directory = 'C:\lazarus32'
+    ItemHeight = 15
+    Mask = '*.DAT'
+    OnChange = GameFilesListChange
+    TabOrder = 1
+  end
+  object GameDirEdit: TDirectoryEdit
+    Left = 8
+    Height = 23
+    Top = 72
+    Width = 568
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    TabOrder = 2
+    OnChange = GameDirEditChange
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 48
+    Width = 88
+    Caption = 'Game Directory :'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 104
+    Width = 63
+    Caption = 'Game Files :'
+    ParentColor = False
+  end
+  object ListView1: TListView
+    Left = 224
+    Height = 320
+    Top = 128
+    Width = 378
+    Columns = <    
+      item
+        Caption = 'FileName'
+        Width = 150
+      end    
+      item
+        Caption = 'Offset'
+        Width = 100
+      end    
+      item
+        Caption = 'Size'
+        Width = 100
+      end>
+    MultiSelect = True
+    ReadOnly = True
+    RowSelect = True
+    TabOrder = 3
+    ViewStyle = vsReport
+  end
+  object GameDirExtract: TDirectoryEdit
+    Left = 224
+    Height = 23
+    Top = 480
+    Width = 352
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    TabOrder = 4
+  end
+  object Button1: TButton
+    Left = 224
+    Height = 25
+    Top = 511
+    Width = 75
+    Caption = 'Extract'
+    OnClick = Button1Click
+    TabOrder = 5
+  end
+  object Label3: TLabel
+    Left = 227
+    Height = 15
+    Top = 456
+    Width = 59
+    Caption = 'Extract Dir :'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 224
+    Height = 15
+    Top = 104
+    Width = 79
+    Caption = 'Ressource Files'
+    ParentColor = False
+  end
+end
