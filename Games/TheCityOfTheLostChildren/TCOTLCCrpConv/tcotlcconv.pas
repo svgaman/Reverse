@@ -138,9 +138,9 @@ begin
     end
     else
     begin
-      if Pxl and 255 < $80 then
+      if Pxl < $80 then
       begin
-        NbPxl := Pxl and 255;
+        NbPxl := Pxl;
 
         for I := 0 to NbPxl do
         begin
@@ -158,7 +158,7 @@ begin
       else
       begin
         Pxl2 := InStream.ReadByte;
-        Repetition := (Pxl and 255) - $80 + 1;
+        Repetition := Pxl - $80 + 1;
 
         For I := 0 To Repetition do
         begin
