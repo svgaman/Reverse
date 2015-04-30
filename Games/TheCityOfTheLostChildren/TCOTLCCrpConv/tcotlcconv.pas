@@ -5,7 +5,7 @@ unit tcotlcconv;
 interface
 
 uses
-  Classes, SysUtils, Graphics;
+  Classes, SysUtils, Graphics, FPimage, FPWritePNG, FPReadBMP;
 Type
 
 TPalette = packed record
@@ -34,6 +34,7 @@ TCrpFileListArray = Array of TCrpFileEntry;
 
 function FileInfo(FileName: string): TPicHeader;
 procedure ConvertFile(FileName: string);
+procedure ConvertBmpToPng(BmpFileName: string);
 
 implementation
 
@@ -178,6 +179,19 @@ begin
   InStream.Free;
   Bmp.SaveToFile(FileName + '.bmp');
   Bmp.Free;
+end;
+
+procedure ConvertBmpToPng(BmpFileName: string);
+var
+  image: TFPCustomImage;
+  reader: TFPCustomImageReader;
+  writer: TFPCustomImageWriter;
+begin
+  Image := TFPMemoryImage.Create(10, 10);
+  Reader := TFPReaderBMP.Create;
+  Writer := TFPWriterPNG.Create;
+  Image.LoadFromFile(BmpFileName, Reader);
+  Image.SaveToFile(ChangeFileExt(BmpFileName, '.png'), Writer);
 end;
 end.
 

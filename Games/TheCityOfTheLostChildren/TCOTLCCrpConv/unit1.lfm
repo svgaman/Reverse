@@ -18,7 +18,7 @@ object Form1: TForm1
   end
   object ListView1: TListView
     Left = 8
-    Height = 208
+    Height = 176
     Top = 120
     Width = 554
     Columns = <    
@@ -32,6 +32,7 @@ object Form1: TForm1
       item
         Caption = 'Height'
       end>
+    MultiSelect = True
     ReadOnly = True
     RowSelect = True
     TabOrder = 1
@@ -49,5 +50,22 @@ object Form1: TForm1
     MaxLength = 0
     TabOrder = 2
     OnChange = DirectoryEdit1Change
+  end
+  object BtnExtract: TButton
+    Left = 456
+    Height = 25
+    Top = 306
+    Width = 104
+    Caption = 'Extract'
+    OnClick = BtnExtractClick
+    TabOrder = 3
+  end
+  object ChckBxPng: TCheckBox
+    Left = 8
+    Height = 19
+    Top = 306
+    Width = 100
+    Caption = 'Convert to png'
+    TabOrder = 4
   end
 end

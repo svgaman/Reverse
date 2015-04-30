@@ -6,16 +6,19 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ShellCtrls, ComCtrls, EditBtn, tcotlcconv;
+  ShellCtrls, ComCtrls, EditBtn, StdCtrls, tcotlcconv;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    BtnExtract: TButton;
+    ChckBxPng: TCheckBox;
     DirectoryEdit1: TDirectoryEdit;
     ListView1: TListView;
     Panel1: TPanel;
+    procedure BtnExtractClick(Sender: TObject);
     procedure DirectoryEdit1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ListView1DblClick(Sender: TObject);
@@ -43,11 +46,41 @@ end;
 procedure TForm1.ListView1DblClick(Sender: TObject);
 begin
   ConvertFile(DirectoryEdit1.Directory + '\' + FicList[ListView1.ItemIndex].Filename);
+
+  if ChckBxPng.Checked then
+  begin
+    ConvertBmpToPng(DirectoryEdit1.Directory + '\' + FicList[ListView1.ItemIndex].Filename + '.bmp');
+  end;
 end;
 
 procedure TForm1.DirectoryEdit1Change(Sender: TObject);
 begin
   ScanDir(DirectoryEdit1.Directory+'\');
+end;
+
+procedure TForm1.BtnExtractClick(Sender: TObject);
+var
+  i: integer;
+begin
+  for i := 0 to ListView1.Items.Count - 1 do
+  begin
+    if ListView1.Items[i].Selected then
+    begin
+      try
+        ConvertFile(DirectoryEdit1.Directory + '\' + FicList[i].Filename);
+
+        if ChckBxPng.Checked then
+        begin
+          ConvertBmpToPng(DirectoryEdit1.Directory + '\' + FicList[i].Filename + '.bmp');
+        end;
+      except
+        on e: exception do
+        begin
+          ShowMessage(e.message);
+        end;
+      end;
+    end;
+  end;
 end;
 
 procedure TForm1.ScanDir(Path: string);
