@@ -1,27 +1,39 @@
 object Form1: TForm1
-  Left = 1150
+  Left = 427
   Height = 545
-  Top = 353
+  Top = 205
   Width = 609
+  BorderStyle = bsDialog
   Caption = 'Game Ressource Extractor'
   ClientHeight = 545
   ClientWidth = 609
-  LCLVersion = '1.2.4.0'
+  Position = poScreenCenter
+  LCLVersion = '1.6.0.4'
   object Panel1: TPanel
     Left = 8
     Height = 32
     Top = 8
     Width = 594
     Caption = 'The City Of The Lost Children'
+    ClientHeight = 32
+    ClientWidth = 594
     TabOrder = 0
+    object Label6: TLabel
+      Left = 560
+      Height = 15
+      Top = 8
+      Width = 21
+      Caption = 'v1.0'
+      ParentColor = False
+    end
   end
   object GameFilesList: TFileListBox
     Left = 8
-    Height = 408
-    Top = 128
+    Height = 384
+    Top = 152
     Width = 208
     Directory = 'C:\lazarus32'
-    ItemHeight = 15
+    ItemHeight = 0
     Mask = '*.DAT'
     OnChange = GameFilesListChange
     TabOrder = 1
@@ -29,7 +41,7 @@ object Form1: TForm1
   object GameDirEdit: TDirectoryEdit
     Left = 8
     Height = 23
-    Top = 72
+    Top = 96
     Width = 568
     ShowHidden = False
     ButtonWidth = 23
@@ -41,23 +53,23 @@ object Form1: TForm1
   object Label1: TLabel
     Left = 8
     Height = 15
-    Top = 48
-    Width = 88
-    Caption = 'Game Directory :'
+    Top = 72
+    Width = 120
+    Caption = 'Game Datas Directory :'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 8
     Height = 15
-    Top = 104
+    Top = 128
     Width = 63
     Caption = 'Game Files :'
     ParentColor = False
   end
   object ListView1: TListView
     Left = 224
-    Height = 320
-    Top = 128
+    Height = 296
+    Top = 152
     Width = 378
     Columns = <    
       item
@@ -73,6 +85,7 @@ object Form1: TForm1
         Width = 100
       end>
     MultiSelect = True
+    PopupMenu = MenuRessources
     ReadOnly = True
     RowSelect = True
     TabOrder = 3
@@ -109,9 +122,30 @@ object Form1: TForm1
   object Label4: TLabel
     Left = 224
     Height = 15
-    Top = 104
+    Top = 128
     Width = 79
     Caption = 'Ressource Files'
     ParentColor = False
+  end
+  object Label5: TLabel
+    Cursor = crHandPoint
+    Left = 224
+    Height = 15
+    Top = 48
+    Width = 163
+    Caption = 'http://citeenfantsperdus.free.fr'
+    Font.Color = clBlue
+    Font.Style = [fsUnderline]
+    ParentColor = False
+    ParentFont = False
+    OnClick = Label5Click
+  end
+  object MenuRessources: TPopupMenu
+    left = 456
+    top = 264
+    object MenuItem1: TMenuItem
+      Caption = 'Save Files List'
+      OnClick = MenuItem1Click
+    end
   end
 end

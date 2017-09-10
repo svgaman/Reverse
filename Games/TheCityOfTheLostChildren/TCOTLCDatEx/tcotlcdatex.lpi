@@ -9,7 +9,6 @@
       <Title Value="tcotlcdatex"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
-      <Icon Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
@@ -50,7 +49,6 @@
       <Unit2>
         <Filename Value="tcotlcex.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tcotlcex"/>
       </Unit2>
     </Units>
   </ProjectOptions>
@@ -73,12 +71,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

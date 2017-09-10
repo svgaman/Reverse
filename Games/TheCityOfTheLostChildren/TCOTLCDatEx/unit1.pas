@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, ButtonPanel, FileCtrl, EditBtn, StdCtrls, tcotlcex, strutils;
+  ComCtrls, ButtonPanel, FileCtrl, EditBtn, StdCtrls, Menus, tcotlcex, strutils, LCLIntf;
 
 type
 
@@ -21,11 +21,17 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     ListView1: TListView;
+    MenuItem1: TMenuItem;
     Panel1: TPanel;
+    MenuRessources: TPopupMenu;
     procedure Button1Click(Sender: TObject);
     procedure GameDirEditChange(Sender: TObject);
     procedure GameFilesListChange(Sender: TObject);
+    procedure Label5Click(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
   private
     { private declarations }
   public
@@ -54,6 +60,17 @@ var
   Li: TListItem;
   ArchiveFileName, ExtrFileName: string;
 begin
+  if GameDirEdit.Directory = '' then
+  begin
+    raise Exception.Create('Please provide game datas directory');
+  end;
+
+  if GameDirExtract.Directory = '' then
+  begin
+    raise Exception.Create('Please provide extraction directory');
+  end;
+
+
   ArchiveFileName := GameFilesList.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex];
   OutputDir := GameDirExtract.Directory + '\';
 
@@ -108,6 +125,45 @@ begin
       ShowMessage(e.message);
     end;
   end;
+end;
+
+procedure TForm1.Label5Click(Sender: TObject);
+begin
+  OpenURL(Label5.Caption);
+end;
+
+procedure TForm1.MenuItem1Click(Sender: TObject);
+var
+  i: integer;
+  ResFileDir, OutputDir: string;
+  Offset, Size: DWORD;
+  Li: TListItem;
+  ArchiveFileName, ExtrFileName: string;
+  List: TStringList;
+begin
+  //ArchiveFileName := GameFilesList.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex];
+  OutputDir := GameDirExtract.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex] + '_List.txt';
+  List := TStringList.Create;
+
+  try
+    for i := 0 to ListView1.Items.Count - 1 do
+    begin
+        try
+          List.Add(ListView1.Items[i].Caption);
+        except
+          on e: exception do
+          begin
+            ShowMessage(e.message);
+          end;
+        end;
+    end;
+
+    List.SaveToFile(OutputDir);
+  finally
+    List.Free;
+  end;
+
+
 end;
 
 end.
