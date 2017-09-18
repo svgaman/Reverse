@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, ButtonPanel, FileCtrl, EditBtn, StdCtrls, Menus, tcotlcex, strutils, LCLIntf;
+  ComCtrls, ButtonPanel, FileCtrl, EditBtn, StdCtrls, Menus, tcotlcex, tcotlcsnw, strutils, LCLIntf;
 
 type
 
@@ -80,7 +80,7 @@ begin
     begin
       try
         ExtrFileName := StringReplace(ListView1.Items[i].Caption, ' ', '_', [rfReplaceAll, rfIgnoreCase]);
-        ExtractFile(ArchiveFileName, OutputDir, ExtrFileName, Hex2Dec(ListView1.Items[i].SubItems[0]), Hex2Dec(ListView1.Items[i].SubItems[1]), False);
+        ExtractFile(ArchiveFileName, OutputDir, ExtrFileName, Hex2Dec(ListView1.Items[i].SubItems[0]), Hex2Dec(ListView1.Items[i].SubItems[1]));
       except
         on e: exception do
         begin
@@ -93,37 +93,60 @@ end;
 
 procedure TForm1.GameFilesListChange(Sender: TObject);
 var
-  ArchiveFileName: string;
+  ArchiveFileName, ArchiveExt, BaseName: string;
   ResFileDir, OutputDir: string;
   FicList: TArchiveFileListArray;
+  FicListSnw: TSnwFileListArray;
   Cpt: integer;
   ItemFicEntry: TListItem;
 begin
   ListView1.Items.Clear;
-  ArchiveFileName := GameFilesList.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex];
-
-  try
-    if CheckFile(ArchiveFileName) then
+  if GameFilesList.SelCount > 0 then
     begin
-      FicList := ParseArchiveFile(ArchiveFileName);
+    ArchiveFileName := GameFilesList.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex];
+    ArchiveExt := ExtractFileExt(ArchiveFileName);
 
-      for Cpt := 0 to Length(FicList) - 1 do
+    try
+      if (ArchiveExt = '.DAT') then
       begin
-        ItemFicEntry := ListView1.Items.Add();
-        ItemFicEntry.Caption:= FicList[Cpt].Filename;
-        ItemFicEntry.SubItems.Add(IntToHex(FicList[Cpt].Offset,8));
-        ItemFicEntry.SubItems.Add(IntToHex(FicList[Cpt].Size,8));
+        if CheckFile(ArchiveFileName) then
+        begin
+          FicList := ParseArchiveFile(ArchiveFileName);
+
+          for Cpt := 0 to Length(FicList) - 1 do
+          begin
+            ItemFicEntry := ListView1.Items.Add();
+            ItemFicEntry.Caption:= FicList[Cpt].Filename;
+            ItemFicEntry.SubItems.Add(IntToHex(FicList[Cpt].Offset,8));
+            ItemFicEntry.SubItems.Add(IntToHex(FicList[Cpt].Size,8));
+          end;
+        end
+        else
+        begin
+          Raise Exception.Create('This file is not a game file');
+        end;
       end;
-    end
-    else
-    begin
-      Raise Exception.Create('This file is not a game file');
+
+      if (ArchiveExt = '.SNW') then
+      begin
+        FicListSnw := ParseSnwFile(ArchiveFileName);
+        BaseName := ExtractFileNameOnly(ArchiveFileName);
+        BaseName := ExtractFileNameWithoutExt(BaseName);
+        for Cpt := 0 to Length(FicListSnw) - 1 do
+        begin
+          ItemFicEntry := ListView1.Items.Add();
+          ItemFicEntry.Caption:= Format('Sound_%s_%d.wavbin', [BaseName, Cpt]);
+          ItemFicEntry.SubItems.Add(IntToHex(FicListSnw[Cpt].Offset,8));
+          ItemFicEntry.SubItems.Add(IntToHex(FicListSnw[Cpt].Size,8));
+        end;
+      end;
+    except
+      on e: exception do
+      begin
+        ShowMessage(e.message);
+      end;
     end;
-  except
-    on e: exception do
-    begin
-      ShowMessage(e.message);
-    end;
+
   end;
 end;
 

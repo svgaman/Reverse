@@ -22,9 +22,8 @@ type
 
   TArchiveFileListArray = Array of TArchiveFileEntry;
 
-procedure ExtractFile(InputFile, OutputDir, FileName: string; Offset, Size: DWORD; Convert:boolean);
+procedure ExtractFile(InputFile, OutputDir, FileName: string; Offset, Size: DWORD);
 function ParseArchiveFile(InFile: string): TArchiveFileListArray;
-procedure ConvertPcxToBmp(PcxFileName: string);
 function CheckFile(InputFile: string):boolean;
 implementation
 
@@ -42,7 +41,7 @@ begin
   Result := (Magic = 'CRSL');
 end;
 
-procedure ExtractFile(InputFile, OutputDir, FileName: string; Offset, Size: DWORD; Convert:boolean);
+procedure ExtractFile(InputFile, OutputDir, FileName: string; Offset, Size: DWORD);
 var
   InStream, OutStream: TFileStream;
 begin
@@ -55,11 +54,6 @@ begin
 
     FreeAndNil(InStream);
     FreeAndNil(OutStream);
-
-    if Convert then
-    begin
-      ConvertPcxToBmp(OutputDir + FileName);
-    end;
   except
     on e: exception do
     begin
@@ -67,20 +61,6 @@ begin
       Exception.Create(e.Message);
     end;
   end;
-end;
-
-procedure ConvertPcxToBmp(PcxFileName: string);
-var
-  image: TFPCustomImage;
-  reader: TFPCustomImageReader;
-  writer: TFPCustomImageWriter;
-begin
-  Image := TFPMemoryImage.Create(10, 10);
-  Reader := TFPReaderPCX.Create;
-  Writer := TFPWriterBMP.Create;
-
-  Image.LoadFromFile(PcxFileName, Reader);
-  Image.SaveToFile(PcxFileName + '.bmp', Writer);
 end;
 
 function ParseArchiveFile(InFile: string): TArchiveFileListArray;
