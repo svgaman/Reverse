@@ -8,13 +8,13 @@ object Form1: TForm1
   ClientHeight = 545
   ClientWidth = 609
   Position = poScreenCenter
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.8.4.0'
   object Panel1: TPanel
     Left = 8
     Height = 32
     Top = 8
     Width = 594
-    Caption = 'The City Of The Lost Children'
+    Caption = 'The City Of Lost Children'
     ClientHeight = 32
     ClientWidth = 594
     TabOrder = 0

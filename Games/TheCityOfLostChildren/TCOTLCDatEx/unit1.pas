@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   ComCtrls, ButtonPanel, FileCtrl, EditBtn, StdCtrls, Menus, tcotlcex, tcotlcsnw, strutils, LCLIntf;
 
 type
