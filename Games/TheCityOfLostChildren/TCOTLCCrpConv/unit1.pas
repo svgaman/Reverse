@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ShellCtrls, ComCtrls, EditBtn, StdCtrls, tcotlcconv;
+  ShellCtrls, ComCtrls, EditBtn, StdCtrls, tcotlcconv, LCLIntf;
 
 type
 
@@ -16,11 +16,13 @@ type
     BtnExtract: TButton;
     ChckBxPng: TCheckBox;
     DirectoryEdit1: TDirectoryEdit;
+    Label1: TLabel;
     ListView1: TListView;
     Panel1: TPanel;
     procedure BtnExtractClick(Sender: TObject);
     procedure DirectoryEdit1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Label1Click(Sender: TObject);
     procedure ListView1DblClick(Sender: TObject);
   private
     { private declarations }
@@ -41,6 +43,11 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 begin
 
+end;
+
+procedure TForm1.Label1Click(Sender: TObject);
+begin
+  OpenURL(Label1.Caption);
 end;
 
 procedure TForm1.ListView1DblClick(Sender: TObject);
