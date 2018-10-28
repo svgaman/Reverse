@@ -21,14 +21,12 @@ object Form1: TForm1
     Height = 23
     Top = 88
     Width = 512
-    Directory = 'E:\stuff\reverse\sources\reversegame\git\Games\TheCityOfLostChildren\dump'
     ShowHidden = False
     ButtonWidth = 23
     NumGlyphs = 1
     MaxLength = 0
     TabOrder = 1
     OnChange = DirectoryEdit1Change
-    Text = 'E:\stuff\reverse\sources\reversegame\git\Games\TheCityOfLostChildren\dump'
   end
   object Label1: TLabel
     Cursor = crHandPoint
