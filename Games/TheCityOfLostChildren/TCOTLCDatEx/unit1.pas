@@ -71,8 +71,8 @@ begin
   end;
 
 
-  ArchiveFileName := GameFilesList.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex];
-  OutputDir := GameDirExtract.Directory + '\';
+  ArchiveFileName := GameFilesList.Directory + DirectorySeparator + GameFilesList.Items[GameFilesList.ItemIndex];
+  OutputDir := GameDirExtract.Directory + DirectorySeparator;
 
   for i := 0 to ListView1.Items.Count - 1 do
   begin
@@ -103,7 +103,7 @@ begin
   ListView1.Items.Clear;
   if GameFilesList.SelCount > 0 then
     begin
-    ArchiveFileName := GameFilesList.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex];
+    ArchiveFileName := GameFilesList.Directory + DirectorySeparator + GameFilesList.Items[GameFilesList.ItemIndex];
     ArchiveExt := ExtractFileExt(ArchiveFileName);
 
     try
@@ -165,7 +165,7 @@ var
   List: TStringList;
 begin
   //ArchiveFileName := GameFilesList.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex];
-  OutputDir := GameDirExtract.Directory + '\' + GameFilesList.Items[GameFilesList.ItemIndex] + '_List.txt';
+  OutputDir := GameDirExtract.Directory + DirectorySeparator + GameFilesList.Items[GameFilesList.ItemIndex] + '_List.txt';
   List := TStringList.Create;
 
   try
