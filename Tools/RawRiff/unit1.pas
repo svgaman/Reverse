@@ -36,19 +36,24 @@ type
     CbBitsPerSample: TComboBox;
     CbAudioFormat: TComboBox;
     ComboBox1: TComboBox;
+    EdtSize: TEdit;
+    EdtStartOffset: TEdit;
     EdtNbrCanaux: TEdit;
     EdtBlocSize: TEdit;
     FileNameEdit1: TFileNameEdit;
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
+    Label9: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure EdtStartOffsetChange(Sender: TObject);
     procedure FileNameEdit1Change(Sender: TObject);
   private
     procedure BuildWaveFile(FileName: string);
@@ -88,9 +93,25 @@ begin
   end;
 end;
 
+procedure TForm1.EdtStartOffsetChange(Sender: TObject);
+var
+  StartOffset, FSize, FSize2: integer;
+begin
+  FSize := FileSize(FileNameEdit1.FileName);
+  FSize2 := StrToInt(EdtSize.Text);
+  StartOffset := StrToInt(EdtStartOffset.Text);
+
+  if StartOffset + FSize2 > FSize then
+  begin
+    FSize2 := FSize - StartOffset;
+    EdtSize.Text := IntToStr(FSize2);
+  end;
+end;
+
 procedure TForm1.FileNameEdit1Change(Sender: TObject);
 begin
   Button1.Enabled := FileExists(FileNameEdit1.FileName);
+  EdtSize.Text := IntToStr(FileSize(FileNameEdit1.FileName));
 end;
 
 procedure TForm1.BuildWaveFile(FileName: string);
@@ -98,13 +119,18 @@ var
   InStream : TFileStream;
   OutStream : TMemoryStream;
   Riff: TRiff;
+  WavSize, StartPos: integer;
 begin
   InStream := TFileStream.Create(FileName, fmOpenRead);
   OutStream := TMemoryStream.Create;
 
   try
+    WavSize := StrToInt(EdtSize.Text);
+    StartPos := StrToInt(EdtStartOffset.Text);
+    InStream.Seek(StartPos, soFromBeginning);
+
     Riff.FileTypeBlocId := $46464952;
-    Riff.FileSize := SizeOf(TRiff) + InStream.Size - 8;
+    Riff.FileSize := SizeOf(TRiff) + WavSize - 8;
     Riff.FileFormatId := $45564157;
     Riff.FormatBlocId := $20746D66;
     Riff.BlocSize := StrToInt('$' + EdtBlocSize.Text);//$10;
@@ -118,7 +144,7 @@ begin
     Riff.DataBlocId := $61746164;
     Riff.DataSize := InStream.Size;
     OutStream.WriteBuffer(Riff, sizeof(TRiff));
-    OutStream.CopyFrom(InStream, InStream.Size);
+    OutStream.CopyFrom(InStream, WavSize);
     OutStream.SaveToFile(FileName + '.wav');
   finally
     InStream.Free;

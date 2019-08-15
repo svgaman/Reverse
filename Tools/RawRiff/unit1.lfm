@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 730
-  Height = 333
-  Top = 391
+  Left = 464
+  Height = 394
+  Top = 443
   Width = 370
   BorderStyle = bsDialog
   Caption = 'RawRiff - 15/08/2019'
-  ClientHeight = 333
+  ClientHeight = 394
   ClientWidth = 370
   LCLVersion = '1.8.4.0'
   object FileNameEdit1: TFileNameEdit
@@ -32,7 +32,7 @@ object Form1: TForm1
   object GroupBox1: TGroupBox
     Left = 8
     Height = 192
-    Top = 96
+    Top = 160
     Width = 352
     Caption = 'RIFF Data'
     ClientHeight = 172
@@ -105,8 +105,8 @@ object Form1: TForm1
         '11025'
         '22050'
         '44100'
-        '48 000'
-        '96 000'
+        '48000'
+        '96000'
       )
       Style = csDropDownList
       TabOrder = 2
@@ -137,8 +137,9 @@ object Form1: TForm1
       Top = 136
       Width = 152
       ItemHeight = 15
-      ItemIndex = 0
+      ItemIndex = 1
       Items.Strings = (
+        '4'
         '8'
         '16'
         '24'
@@ -168,7 +169,7 @@ object Form1: TForm1
   object Button1: TButton
     Left = 224
     Height = 25
-    Top = 296
+    Top = 360
     Width = 136
     Caption = 'Build WAV'
     Enabled = False
@@ -178,7 +179,7 @@ object Form1: TForm1
   object ComboBox1: TComboBox
     Left = 112
     Height = 23
-    Top = 64
+    Top = 128
     Width = 220
     ItemHeight = 15
     ItemIndex = 0
@@ -194,9 +195,42 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 8
     Height = 15
-    Top = 72
+    Top = 136
     Width = 37
     Caption = 'Presets'
     ParentColor = False
+  end
+  object EdtSize: TEdit
+    Left = 112
+    Height = 23
+    Top = 96
+    Width = 220
+    TabOrder = 4
+    Text = '0'
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 15
+    Top = 104
+    Width = 20
+    Caption = 'Size'
+    ParentColor = False
+  end
+  object Label9: TLabel
+    Left = 8
+    Height = 15
+    Top = 72
+    Width = 59
+    Caption = 'Start Offset'
+    ParentColor = False
+  end
+  object EdtStartOffset: TEdit
+    Left = 112
+    Height = 23
+    Top = 64
+    Width = 220
+    OnChange = EdtStartOffsetChange
+    TabOrder = 5
+    Text = '0'
   end
 end
